@@ -1,0 +1,21 @@
+{
+    "taskagreegateview": {
+        "search":  {
+            "runtimestable": {
+                "noitems": [
+                    "notPresent",
+                    "XXXXXXXX"
+                ],
+                "itempresent": [
+                    "NewPipeline1651065607487",
+                    "NewPipeline1651065639526"
+                ]
+            }
+        },
+        "filters": {
+            "advancesearch": {
+                "projects": ["NewProject1651064123072", "1", "12", "123", "778"]
+            }
+        }
+    }
+}

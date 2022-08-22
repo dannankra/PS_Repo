@@ -1,0 +1,59 @@
+
+import StudioPage  from '../../../pageobjects/StudioPage'
+import Table from '../../../components/Table'
+import Filters from '../../../components/Filters'
+
+/// <reference types="cypress" />
+
+describe('Settings Filter: Projects list DropDown in Advanced Filtering / Search with numeric value', function () {
+  before(() => {
+  })
+  beforeEach(() => {
+    cy.login()
+    StudioPage.visit()
+    StudioPage.goToExecutionOverview()
+    Table.selectItemsPerPage()
+    Table.enterDateRange()
+  });
+  after(() => {
+    // cy.logout()
+  })
+  afterEach(() => {
+  });
+  
+  describe('Filters', function () {
+    let projectsData
+    before(() => {
+      cy.fixture('testdata').then((data) => { 
+        projectsData = data.taskagreegateview.filters.advancesearch.projects
+      }) 
+    })
+    it.only('should be able to search with Numeric numbers (ex: 1,2,3 etc.,)  ', function () {
+      Filters.advanceSearch({ project: 778 })
+      Table.verifyTableHasData()
+    })
+    it(`Selected Suggestion should be highlighted in the list`, function () {
+        Filters.clickFilterBtn()
+        Filters.setProjectSearch('778')
+        Filters.selectFirstProjectSearchedSuggestion()
+        Filters.verifyFirstProjectSearchedSugestionIsSelected()
+    })
+    
+    it(`All Project Suggestions must contain search item`, function () {
+      projectsData.forEach(function (term) {
+        Filters.clickFilterBtn()
+        Filters.setProjectSearch(term)
+        Filters.verifyProjectSuggectionsAreCorrect(term)
+        cy.get(Filters.projectSearchInputCss).clear()
+      })
+    })
+  })
+  context('The 3 search options should be visible', function () {
+    Object.values(Filters.advanceSearchOptionsCss).forEach(function (item) {
+      it(`Advance Search should show ${item}`, function () {
+        Filters.clickFilterBtn()
+        cy.get(item).should('exist')
+      })
+    })
+  })
+})
