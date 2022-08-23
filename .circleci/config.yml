@@ -3,7 +3,7 @@ orbs:
   cypress: cypress-io/cypress@1
 executors:
   with-chrome:
-    resource_class: small
+    resource_class: large
     docker:
       - image: "cypress/browsers:node14.16.0-chrome90-ff88"
 workflows:
