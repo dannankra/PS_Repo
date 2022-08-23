@@ -8,9 +8,9 @@ executors:
       - image: "cypress/browsers:node14.16.0-chrome90-ff88"
 workflows:
   build:
-    environment:
-      TESTRAIL_ENABLED: 0
     jobs:
+     environment:
+      TESTRAIL_ENABLED: 0
       - cypress/install
       - cypress/run:
           requires:
