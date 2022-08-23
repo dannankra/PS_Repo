@@ -9,17 +9,7 @@ executors:
 workflows:
   build:
     jobs:
-     environment:
-      TESTRAIL_ENABLED: 0
       - cypress/install
-      - cypress/run:
-          requires:
-            - cypress/install
-          executor: with-chrome
-          browser: chrome
-          post-steps:
-            - run: ls
-            - store_test_results:
-                path: cypress/results
-            - store_artifacts:
-                path: cypress/screenshots
+      - run:
+          name: Run Tests
+          command: npm run cy:ci
